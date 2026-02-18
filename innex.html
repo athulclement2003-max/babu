@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>YouTube Video Player</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #0f0f0f;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 500px;
+      background: #1a1a1a;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.6);
+      text-align: center;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: none;
+      margin-bottom: 10px;
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      background: #ff0000;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #cc0000;
+    }
+
+    iframe {
+      width: 100%;
+      height: 250px;
+      margin-top: 15px;
+      border-radius: 10px;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Paste YouTube Link</h2>
+
+    <input type="text" id="ytLink" placeholder="https://www.youtube.com/watch?v=XXXXX">
+
+    <button onclick="playVideo()">Play Video</button>
+
+    <div id="videoBox"></div>
+  </div>
+
+  <script>
+    function playVideo() {
+      const link = document.getElementById("ytLink").value;
+      let videoId = "";
+
+      if (link.includes("watch?v=")) {
+        videoId = link.split("watch?v=")[1].split("&")[0];
+      } else if (link.includes("youtu.be/")) {
+        videoId = link.split("youtu.be/")[1].split("?")[0];
+      }
+      else if (link.includes("shorts/")) {
+        videoId = link.split("shorts/")[1].split("?")[0];
+      }
+
+      if (videoId === "") {
+        alert("Invalid YouTube link");
+        return;
+      }
+
+      document.getElementById("videoBox").innerHTML = `
+        <iframe src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe>
+      `;
+    }
+  </script>
+
+</body>
+</html>
